@@ -19,35 +19,28 @@ test('faild validation', async ({ page }) => {
 
     });
 
-import { test, expect } from '@playwright/test';
 
-test('Verify Existing User Data Is Visible', async ({ page }) => {
+    test('Verify Existing User Data Is Visible', async ({ page }) => {
 
-  await page.goto('http://localhost:8000');
+        await page.goto('http://localhost:8000');
 
-  // Login
-  await page.getByPlaceholder('Enter mobile number')
-    .fill('9876543210');
+        // Login
+        await page.getByPlaceholder('Enter mobile number').fill('9876543210');
 
-  await page.getByPlaceholder('Enter password')
-    .fill('password123');
+        await page.getByPlaceholder('Enter password').fill('password123');
 
-  await page.locator('button[type="submit"]').click();
+        await page.locator('button[type="submit"]').click();
 
-  // Open Profile
-  await page.getByRole('link', { name: 'Profile' }).click();
+        // Open Profile
+        await page.getByRole('link', { name: 'Profile' }).click();
 
-  // Verify existing data
-  await expect(
-    page.locator('input[value="Rahul Sharma"]')
-  ).toBeVisible();
+        // Verify existing data
+        await expect(page.locator('input')).toContainText([]);
 
-  await expect(
-    page.locator('input[value="rahul@example.com"]')
-  ).toBeVisible();
+        await expect(page.getByDisplayValue('Rahul Sharma')).toBeVisible();
 
-  await expect(
-    page.locator('input[value="9876543210"]')
-  ).toBeVisible();
+        await expect(page.getByDisplayValue('rahul@example.com')).toBeVisible();
+
+        await expect(page.getByDisplayValue('9876543210')).toBeVisible();
 
 });
